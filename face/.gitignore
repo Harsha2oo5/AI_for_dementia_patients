@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+*.pkl
+models/
+my_dataset/

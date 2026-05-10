@@ -1,0 +1,17 @@
+venv/
+__pycache__/
+*.pyc
+
+dataset/
+audio_samples/
+saved_embeddings/
+
+test_voice.wav
+dementia_env
+venv/
+dementia_env/
+__pycache__/
+*.pyc
+*.pkl
+models/
+my_dataset/
