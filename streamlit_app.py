@@ -280,7 +280,7 @@ for _d in [KNOWN_DIR, PENDING_DIR, DATA_DIR, VOICE_MODELS_DIR]:
 @st.cache_resource
 def load_face_model():
     try:
-        from face_recogniton.fsl_model import RelativeRecognitionModel
+        from face.fsl_model import RelativeRecognitionModel
         m = RelativeRecognitionModel()
         m.load_prototypes(PROTOTYPE_PATH)
         return m, None
@@ -291,7 +291,7 @@ def load_face_model():
 @st.cache_resource
 def load_incremental_model():
     try:
-        from face_recogniton.incremental_fsl_model import IncrementalFSLModel
+        from face.incremental_fsl_model import IncrementalFSLModel
         return IncrementalFSLModel(), None
     except Exception as e:
         return None, str(e)
@@ -300,7 +300,7 @@ def load_incremental_model():
 @st.cache_resource
 def load_voice_model():
     try:
-        from voice_recognition.voice_model import SpeakerRecognitionModel
+        from voice_recognition_system.voice_model import SpeakerRecognitionModel
         vm = SpeakerRecognitionModel()
         if os.path.exists(VOICE_PROTO_PATH):
             vm.load_prototypes(VOICE_PROTO_PATH)
@@ -312,7 +312,7 @@ def load_voice_model():
 @st.cache_resource
 def get_recogniser(_face_model):
     try:
-        from face_recogniton.new_person_handler import OpenSetRecogniser
+        from face.new_person_handler import OpenSetRecogniser
         return OpenSetRecogniser(_face_model) if _face_model else None
     except Exception:
         return None
@@ -321,7 +321,7 @@ def get_recogniser(_face_model):
 @st.cache_resource
 def get_speaker():
     try:
-        from face_recogniton.voice_output import VoiceSpeaker
+        from face.voice_output import VoiceSpeaker
         return VoiceSpeaker()
     except Exception:
         return None
@@ -554,7 +554,7 @@ def start_voice_listener():
         return None
     if "v_listener" not in st.session_state or st.session_state.v_listener is None:
         try:
-            from voice_recognition.realtime_listener import RealtimeListener
+            from voice_recognition_system.realtime_listener import RealtimeListener
             lsn = RealtimeListener(voice_model)
             lsn.start()
             st.session_state.v_listener = lsn
