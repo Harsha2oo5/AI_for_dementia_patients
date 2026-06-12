@@ -240,17 +240,28 @@ class SpeakerRecognitionModel:
         except Exception as e:
             print(f"[Voice Model] Embed failed: {e}")
             return None
+    def _confidence_label(self, score: float) -> str:
+        if score >= 0.90:
+            return "Very High"
+        elif score >= 0.80:
+            return "High"
+        elif score >= 0.70:
+            return "Medium"
+        elif score >= 0.50:
+            return "Low"
+        return "Unknown"
 
     def _result(
         self, state, name, relation, hint, confidence, all_scores, best_guess=None
     ) -> dict:
         return {
-            "state":      state,
-            "matched":    state == "known",
-            "name":       name,
-            "relation":   relation,
-            "hint":       hint,
+            "state": state,
+            "matched": state == "known",
+            "name": name,
+            "relation": relation,
+            "hint": hint,
             "confidence": confidence,
+            "confidence_label": self._confidence_label(confidence),
             "all_scores": all_scores,
             "best_guess": best_guess,
         }
